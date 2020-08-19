@@ -6,30 +6,35 @@ def createRandomNumber():
     return num
 
 def game():
+    counter = 1
     rnum = createRandomNumber()
     while True:
         userinput = input("What is your guess: ")
 
         # Check the input
         try:
-            if int(userinput) > rnum:
+            if userinput == "quit": # When input is "quit"
+                break
+            elif int(userinput) > rnum: # When input is bigger
                 print("Your number is bigger.")
-            elif int(userinput) < rnum:
+            elif int(userinput) < rnum: # When input is smaller
                 print("Your number is smaller.")
             elif int(userinput) == rnum: # When input is right
                 print("You guessed right, the number was: " + str(rnum))
+                print("You needed " + str(counter) + " tries.")
                 # Ask to continue game
                 print("Do you want to continue? (write quit to leave)")
                 userinput = input()
-                if userinput == "quit":
+                if userinput == "quit": # When input is "quit"
                     print("quitting game")
                     break
                 else:
+                    counter = 0
                     rnum = createRandomNumber()
-            elif userinput == "quit":
-                break
+            # Rise counter
+            counter += 1
         except:
-            print("Your input is not valid")
+            print("Your input is not valid.")
             continue
 
 # Starting game
