@@ -1,17 +1,18 @@
 class TicTacToe:
     # Sets the original playground
-    playground = ["| f1 | f2 | f3 |", "|---|---|---|", "| f4 | f5 | f6 |", "|---|---|---|", "| f7 | f8 | f9 |"]
+    playground = ["| 1 | 2 | 3 |", "|---|---|---|", "| 4 | 5 | 6 |", "|---|---|---|", "| 7 | 8 | 9 |"]
+    tempplayground = []
     p1 = "X"
     p2 = "O"
 
     # First playground output
     def PrintExample(self):
         print("--TicTacToe--")
-        print(self.playground[0].format(f1 = 1, f2 = 2, f3 = 3))
+        print(self.playground[0])
         print(self.playground[1])
-        print(self.playground[2].format(f4 = 4, f5 = 5, f6 = 6))
+        print(self.playground[2])
         print(self.playground[3])
-        print(self.playground[4].format(f7 = 7, f8 = 8, f9 = 9))
+        print(self.playground[4])
 
     # Player turns
     def TurnPlayerOne(self):
@@ -32,19 +33,21 @@ class TicTacToe:
        
     # Checks player inputs
     def CheckInput(self, input, player):
-        field = "f" + input
+        field = input
         self.PrintPlayground(field, player)
 
     # Prints changed playground
     def PrintPlayground(self, field, player):
+        self.tempplayground = []
         for str in self.playground:
             if field in str:
-                newstr = str.replace(field, player)
-                print(newstr)
-            else:
+                str = str.replace(field, player)
                 print(str)
-                
-
+                self.tempplayground.append(str)
+            else:
+                self.tempplayground.append(str)
+                print(str)
+        self.playground = self.tempplayground
 
 # Start game
 print("-- Welcome to TicTacToe --")
