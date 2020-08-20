@@ -62,20 +62,60 @@ class TicTacToe:
         win = 0
         # horizontally
         for i in range(0, 5, 2):
-            for i in range(2, 11, 4):
-                if self.playground[row][i] == player:
+            for field in range(2, 11, 4):
+                if self.playground[row][field] == player:
                     win += 1
+                    print("hor: Yes" + " row " + str(row) + " field " + str(field))
                 else:
-                    print("No")
+                    print("hor: No" + " row " + str(row) + " field " + str(field))
                     win = 0
             if win == 3:
                 print("Player " + str(player) + " has won the game!")
                 return True
             row += 2
         # vertical
-        row = 0
-        column = 0
+        field = 2
         win = 0
+        for i in range(0, 3):
+            for row in range(0, 5, 2):
+                if self.playground[row][field] == player:
+                    win += 1
+                    print("ver: Yes" + " row " + str(row) + " field " + str(field))
+                else:
+                    print("ver: No" + " row " + str(row) + " field " + str(field))
+                    win = 0
+            if win == 3:
+                    print("Player " + str(player) + " has won the game!")
+                    return True
+            field += 4
+        # diagonal left to right
+        win = 0
+        row = 0
+        for field in range(2, 11, 4):
+            if self.playground[row][field] == player:
+                win += 1
+                print("dia: Yes" + " row " + str(row) + " field " + str(field))
+            else:
+                print("dia: No" + " row " + str(row) + " field " + str(field))
+                win = 0
+            row += 2
+        if win == 3:
+            print("Player " + str(player) + " has won the game!")
+            return True
+        # diagonal right to left
+        win = 0
+        row = 4
+        for field in range(2, 11, 4):
+            if self.playground[row][field] == player:
+                win += 1
+                print("dia: Yes" + " row " + str(row) + " field " + str(field))
+            else:
+                print("dia: No" + " row " + str(row) + " field " + str(field))
+                win = 0
+            row -= 2
+        if win == 3:
+            print("Player " + str(player) + " has won the game!")
+            return True
 
 # Start game
 print("-- Welcome to TicTacToe --")
@@ -84,13 +124,16 @@ while True:
     game = TicTacToe()
     game.PrintExample()
     print("")
+    count = 1
 
     # Play for 5 rounds
     for i in range(0, 5):
         if game.TurnPlayerOne():
             break
-        if game.TurnPlayerTwo():
-            break
+        if not count >= 8:
+            if game.TurnPlayerTwo():
+                break
+        count += 2
     print("--------------")
     print("---Gameover---")
     print("--------------")
