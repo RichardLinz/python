@@ -16,22 +16,30 @@ class TicTacToe:
         print(self.playground[4])
 
     # Player turns
-    def TurnPlayerOne(self):
-        print("Player " + str(self.p1) + " it is your turn!")
-        print("What field do you choose?")
+    def Playerturn(self, player):
+        while True:
+            try:
+                print("Player " + str(player) + " it is your turn!")
+                print("What field do you choose?")
 
-        playerinput = input("Field: ")
-        print()
-        win = self.CheckInput(playerinput, self.p1)
-        return win
-    def TurnPlayerTwo(self):
-        print("Player " + str(self.p2) + " it is your turn!")
-        print("What field do you choose?")
-
-        playerinput = input("Field: ")
-        print()
-        win = self.CheckInput(playerinput, self.p2)
-        return win
+                # Checks if input is valid
+                playerinput = int(input("Field: "))
+                if playerinput < 10 and playerinput > 0: # between 1-9
+                    playerinput = str(playerinput)
+                    if playerinput in str(self.playground): # input still in string
+                        print()
+                        win = self.CheckInput(str(playerinput), player)
+                        return win
+                    else:
+                        print("-------------------------------------")
+                        print("This number is not available anymore.")
+                        print("-------------------------------------")
+                else:
+                    raise ValueError
+            except ValueError:
+                print("-------------------------------------")
+                print("Your input is not a integer from 1-9!")
+                print("-------------------------------------")
        
     # Checks player inputs
     def CheckInput(self, input, player):
@@ -65,9 +73,9 @@ class TicTacToe:
             for field in range(2, 11, 4):
                 if self.playground[row][field] == player:
                     win += 1
-                    print("hor: Yes" + " row " + str(row) + " field " + str(field))
+                    # print("hor: Yes" + " row " + str(row) + " field " + str(field))
                 else:
-                    print("hor: No" + " row " + str(row) + " field " + str(field))
+                    # print("hor: No" + " row " + str(row) + " field " + str(field))
                     win = 0
             if win == 3:
                 print("Player " + str(player) + " has won the game!")
@@ -80,9 +88,9 @@ class TicTacToe:
             for row in range(0, 5, 2):
                 if self.playground[row][field] == player:
                     win += 1
-                    print("ver: Yes" + " row " + str(row) + " field " + str(field))
+                    # print("ver: Yes" + " row " + str(row) + " field " + str(field))
                 else:
-                    print("ver: No" + " row " + str(row) + " field " + str(field))
+                    # print("ver: No" + " row " + str(row) + " field " + str(field))
                     win = 0
             if win == 3:
                     print("Player " + str(player) + " has won the game!")
@@ -94,9 +102,9 @@ class TicTacToe:
         for field in range(2, 11, 4):
             if self.playground[row][field] == player:
                 win += 1
-                print("dia: Yes" + " row " + str(row) + " field " + str(field))
+                # print("dia: Yes" + " row " + str(row) + " field " + str(field))
             else:
-                print("dia: No" + " row " + str(row) + " field " + str(field))
+                # print("dia: No" + " row " + str(row) + " field " + str(field))
                 win = 0
             row += 2
         if win == 3:
@@ -108,9 +116,9 @@ class TicTacToe:
         for field in range(2, 11, 4):
             if self.playground[row][field] == player:
                 win += 1
-                print("dia: Yes" + " row " + str(row) + " field " + str(field))
+                # print("dia: Yes" + " row " + str(row) + " field " + str(field))
             else:
-                print("dia: No" + " row " + str(row) + " field " + str(field))
+                # print("dia: No" + " row " + str(row) + " field " + str(field))
                 win = 0
             row -= 2
         if win == 3:
@@ -128,10 +136,10 @@ while True:
 
     # Play for 5 rounds
     for i in range(0, 5):
-        if game.TurnPlayerOne():
+        if game.Playerturn("X"):
             break
         if not count >= 8:
-            if game.TurnPlayerTwo():
+            if game.Playerturn("O"):
                 break
         count += 2
     print("--------------")
